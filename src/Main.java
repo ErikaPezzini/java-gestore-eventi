@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -21,10 +22,19 @@ public class Main {
             Evento evento = new Evento(titolo, data, postiTotali);
             System.out.println("Evento creato: " + evento);
 
+            System.out.println("Inserisci l'ora del concerto (ora:minuti): ");
+            String oraInput = scanner.nextLine();
+            LocalTime oraConcerto = LocalTime.parse(oraInput);
+
+            System.out.println("Inserisci il prezzo del concerto: ");
+            double prezzoConcerto = Double.parseDouble(scanner.nextLine());
+
+            Concerto concerto = new Concerto(titolo, data, postiTotali, oraConcerto, prezzoConcerto);
+
             System.out.println("Quante prenotazioni vuoi fare?");
             int prenotazioni = Integer.parseInt(scanner.nextLine());
             for (int i = 0; i < prenotazioni; i++) {
-                
+
                 try {
                     evento.prenota();
                     System.out.println("Prenotazione effettuata.");
@@ -45,6 +55,8 @@ public class Main {
                 }
             }
             System.out.println("Posti prenotati: " + evento.getPostiPrenotati() + " - Posti disponibili: " + (evento.getPostiTotali() - evento.getPostiPrenotati()));
+            
+            System.out.println("Concerto: " + concerto);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
